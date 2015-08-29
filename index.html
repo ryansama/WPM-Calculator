@@ -3,13 +3,14 @@
   <head>
     <title>WPM Calculator</title>
 
+    <!--Font Awesome-->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
     <!--Bootstrap-->
       <!-- Latest compiled and minified CSS -->
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-
       <!-- Optional theme -->
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-
       <!-- Latest compiled and minified JavaScript -->
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
@@ -21,14 +22,39 @@
 
   </head>
 
-  <body class="containter" ng-controller="bodyController">
+  <body ng-controller="bodyController">
     <!--header-->
-    <div class="jumbotron">
+    <div class="jumbotron onesidedropshadow">
       <h1 class="jumbotronText">Get ready.</h1>
       <p class="jumbotronText">Test your typing speed.</p>
     </div>
 
+    <div class="container-fluid">
 
-    <p>Hello world</p>
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <h2>Place your cursor inside the textbox, and copy the content on the left.</h2>
+        </div>
+      </div>
+
+      <div class="row blocks">
+
+        <div class="col-md-6">
+          <p class="text-justify">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam pellentesque nibh id ullamcorper tempus. Curabitur tempor vehicula finibus. Nam id felis eleifend, varius neque id, interdum felis. Aliquam erat volutpat. Nullam feugiat a dui eget sagittis. Sed in mollis nulla, vitae laoreet purus. Sed mollis viverra massa ut iaculis.
+          </p>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="comment">The timer starts when a key is pressed.</label>
+            <textarea class="form-control" rows="18" id="comment"></textarea>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
   </body>
 </html>
