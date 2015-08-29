@@ -1,0 +1,14 @@
+.jumbotron{
+  background-image: url(https://picjumbo.imgix.net/HNCK4023.jpg?q=40&w=1650&sharp=30);
+  background-position: 0% 55%;
+}
+
+.jumbotron h1{
+    color: #fff;
+    padding-left: 24px;
+}
+
+.jumbotron p{
+    color: #fff;
+    padding-left: 32px;
+}
