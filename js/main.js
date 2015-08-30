@@ -1,7 +1,26 @@
+var tempWords = genWords();//generate 60 words upon launch
 
-var tempWords = genWords();
-console.log(tempWords[0]);
+//tasks to run upon page launch
+$(document).ready(function(){
 
+  genParagraph();//generate paragraph
+
+});
+
+function genParagraph(){
+  //clear the div
+  $(".paragraph").empty();
+  //generate paragraph
+  $(".paragraph").append("<p>");
+  $.each(tempWords, function( index, value ) {
+    $(".paragraph").append(value + " ");
+  });
+  $(".paragraph").append("</p>");
+}
+
+//returns an array of 60 words that
+//is generated randomly from the
+//wordList array
 function genWords(){
   var wordList = [
     // Borrowed from xkcd password generator which borrowed it from wherever
@@ -287,5 +306,5 @@ function genWords(){
   }
 
   words.wordList = wordList;
-  return words(50);
+  return words(70);
 }
