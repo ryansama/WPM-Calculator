@@ -5,6 +5,7 @@ body {
 .jumbotron{
   background-image: url(https://picjumbo.imgix.net/HNCK4023.jpg?q=40&w=1650&sharp=30);
   background-position: 0% 55%;
+  background-size: cover;
 }
 
 .jumbotron h1{
