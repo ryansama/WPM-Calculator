@@ -22,11 +22,10 @@
 
     <!--Local script-->
       <script src="js/main.js"></script>
-      <script src="js/random-words.js"></script>
 
   </head>
 
-  <body ng-controller="bodyController">
+  <body>
     <!--header-->
     <div class="jumbotron onesidedropshadow">
       <h1 class="jumbotronText">Get ready.</h1>
@@ -35,10 +34,12 @@
 
     <div class="container-fluid">
 
-      <div class="row">
+      <div class="row ">
+
         <div class="col-md-12 text-center">
           <h2>Click the textbox, and copy the content on the left.</h2>
         </div>
+
       </div>
 
       <div class="row">
@@ -64,10 +65,12 @@
 
         <!--textarea-->
         <div class="col-md-6  blocks">
-          <div class="form-group">
+          <div class="form-group ">
             <label for="comment">The timer starts when a key is pressed.</label>
+            <button type="button" class="resetBtn btn btn-primary">Reset</button>
             <textarea class="form-control" rows="18" id="comment"></textarea>
           </div>
+
         </div>
 
       </div>
@@ -85,4 +88,5 @@
 
     </div>
   </body>
+
 </html>

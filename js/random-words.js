@@ -284,6 +284,9 @@ function words(options) {
 
 words.wordList = wordList;
 
-var randWordArray = words(5);
-
-console.log(randWordArray[0]);
+//use this method to return an array
+//of randomly generated English words
+//from the big array
+function generateWords(){
+    return words(50);
+}

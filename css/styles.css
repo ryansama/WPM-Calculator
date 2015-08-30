@@ -33,4 +33,18 @@ h2 {
 .blocks{
   padding-left: 24px;
   padding-right: 24px;
+  padding-top: 15px;
+}
+
+.border{
+  border-style: solid;
+  border-width: medium;
+  border-color: red;
+}
+
+.resetBtn{
+  position: absolute;
+  top:0;
+  right: 0;
+  margin-right: 30px;
 }
