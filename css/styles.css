@@ -36,12 +36,14 @@ h2 {
   padding-left: 24px;
   padding-right: 24px;
   padding-top: 15px;
+  padding-bottom:15px;
 }
 
 .border{
   border-style: solid;
-  border-width: medium;
-  border-color: red;
+  border-width: 1px;
+  border-color: #CCC;
+  border-radius: 0px 25px 25px 0px;
 }
 
 .resetBtn{

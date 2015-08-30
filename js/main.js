@@ -3,7 +3,13 @@ var tempWords = genWords();//generate 60 words upon launch
 //tasks to run upon page launch
 $(document).ready(function(){
 
-  genParagraph();//generate paragraph
+  genParagraph();//generate paragraph upon launch
+
+  //generate paragraph when reset button is clicked
+  $(".resetBtn").click(function(){
+    tempWords = genWords();//get new words for tempWords
+    genParagraph();
+  });
 
 });
 
