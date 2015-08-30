@@ -2,9 +2,16 @@
 <html ng-app="wpmCalculator">
   <head>
     <title>WPM Calculator</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Words per minute calculator built with HTML, CSS, JavaScript, jQuery and Bootstrap.">
+    <meta name="author1" content="Ryan Samarajeewa">
+    <meta name="author2" content="Andy Yang">
 
     <!--Font Awesome-->
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <!--Roboto font from Google-->
+      <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
     <!--jQuery-->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -67,7 +74,7 @@
         <div class="col-md-6  blocks">
           <div class="form-group ">
             <label for="comment">The timer starts when a key is pressed.</label>
-            <button type="button" class="resetBtn btn btn-primary">Reset</button>
+            <button type="button" class="resetBtn btn btn-default"><i class="fa fa-refresh"></i> Reset</button>
             <textarea class="form-control" rows="18" id="comment"></textarea>
           </div>
 
