@@ -8,22 +8,24 @@ $(document).ready(function(){
   $( ".alert" ).hide();
   genParagraph();//generate paragraph upon launch
 
-  //generate paragraph when reset button is clicked
+  //when reset button is clicked
   $(".resetBtn").click(function(){
+    $( ".alert" ).hide();
+    seconds = 0;//set timer to 0
+    $('#userInput').val('');//clear textarea
     tempWords = genWords();//get new words for tempWords
     genParagraph();
   });
 
-});
-
-//tasks to be run once any key is pressed
-//inside the textarea
-function startCalculations(){
-  var paragraphLength;
-  $.each(tempWords, function(index, value){
-
+  //display an alert if the document is clicked
+  //while timer is still running
+  $(document).click(function(e) {
+    if(seconds > 0){
+      $( ".alert" ).show();
+    }
   });
-}
+
+});
 
 //append the contents of tempWords
 //to the paragraph area
@@ -336,14 +338,17 @@ var timer = 0;
 var seconds = 0;
 var t;
 function Timer(event){
+
+    //if the enter key is pressed, display time
+    //and clear the timer
     if(event.which==13 && timer == 1){
-        alert(seconds);
+        alert(seconds/10);
         clearInterval(t);
         seconds = 0;
         timer = 0;
     }else if(timer == 0 && event.which!=13){
         timer = 1;
-        t = setInterval(function() {startTime()}, 1000);
+        t = setInterval(function() {startTime()}, 100);
         timer = 1;
     }
 
@@ -352,4 +357,3 @@ function Timer(event){
 function startTime () {
     seconds = seconds + 1;
 }
-
