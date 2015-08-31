@@ -331,3 +331,25 @@ function genWords(){
   words.wordList = wordList;
   return words(70);
 }
+
+var timer = 0;
+var seconds = 0;
+var t;
+function Timer(event){
+    if(event.which==13 && timer == 1){
+        alert(seconds);
+        clearInterval(t);
+        seconds = 0;
+        timer = 0;
+    }else if(timer == 0 && event.which!=13){
+        timer = 1;
+        t = setInterval(function() {startTime()}, 1000);
+        timer = 1;
+    }
+
+}
+
+function startTime () {
+    seconds = seconds + 1;
+}
+
