@@ -10,6 +10,7 @@ $(document).ready(function(){
 
   //when reset button is clicked
   $(".resetBtn").click(function(){
+    $('h2').replaceWith("<h2>Click the textbox, and copy the content on the left.</h2>");
     $( ".alert" ).hide();
     seconds = 0;//set timer to 0
     $('#userInput').val('');//clear textarea
@@ -21,7 +22,7 @@ $(document).ready(function(){
   //while timer is still running
   $(document).click(function(e) {
     if(seconds > 0){
-      $( ".alert" ).show();
+      $( ".alert" ).show("fast");
     }
   });
 
@@ -41,6 +42,7 @@ function genParagraph(){
     $(".paragraph").append(value + " ");
   });
   $(".paragraph").append("</p>");
+
 }
 
 //returns an array of 60 words that
@@ -338,7 +340,6 @@ var timer = 0;
 var seconds = 0;
 var t;
 function Timer(event){
-
     //if the enter key is pressed, display time
     //and clear the timer
     if(event.which==13 && timer == 1){
@@ -347,11 +348,11 @@ function Timer(event){
         seconds = 0;
         timer = 0;
     }else if(timer == 0 && event.which!=13){
+        $('h2').replaceWith("<h2>Current: 0.0 WPM</h2>");
         timer = 1;
         t = setInterval(function() {startTime()}, 100);
         timer = 1;
     }
-
 }
 
 function startTime () {
