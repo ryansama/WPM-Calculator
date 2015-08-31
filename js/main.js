@@ -1,8 +1,11 @@
+//Refer to this for formula on calculating WPM:
+//http://www.speedtypingonline.com/typing-equations
+
 var tempWords = genWords();//generate 60 words upon launch
 
 //tasks to run upon page launch
 $(document).ready(function(){
-
+  $( ".alert" ).hide();
   genParagraph();//generate paragraph upon launch
 
   //generate paragraph when reset button is clicked
@@ -13,9 +16,23 @@ $(document).ready(function(){
 
 });
 
+//tasks to be run once any key is pressed
+//inside the textarea
+function startCalculations(){
+  var paragraphLength;
+  $.each(tempWords, function(index, value){
+
+  });
+}
+
+//append the contents of tempWords
+//to the paragraph area
 function genParagraph(){
-  //clear the div
-  $(".paragraph").empty();
+
+  document.getElementById("userInput").select();//focus the textarea
+
+  $(".paragraph").empty();//clear the div
+
   //generate paragraph
   $(".paragraph").append("<p>");
   $.each(tempWords, function( index, value ) {
