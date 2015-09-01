@@ -348,7 +348,7 @@ function Timer(event){
         seconds = 0;
         timer = 0;
     }else if(timer == 0 && event.which!=13){
-        $('h2').replaceWith("<h2>Current: 0.0 WPM</h2>");
+        $('h2').replaceWith("<h2>Time elapsed: " + seconds/10 + " seconds.</h2>");
         timer = 1;
         t = setInterval(function() {startTime()}, 100);
         timer = 1;
@@ -357,4 +357,5 @@ function Timer(event){
 
 function startTime () {
     seconds = seconds + 1;
+    $('h2').replaceWith("<h2>Time elapsed: " + seconds/10 + " seconds.</h2>");
 }
