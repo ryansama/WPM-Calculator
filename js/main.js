@@ -337,17 +337,20 @@ function genWords(){
 }
 
 var timer = 0;
-var seconds = 0;
+var seconds = 0;//time elapsed
 var t;
 function Timer(event){
-    //if the enter key is pressed, display time
-    //and clear the timer
+
+    //clear timer if the reset button is
+    //clicked
     $(".resetBtn").click(function(){
       clearInterval(t);
       seconds = 0;
       timer = 0;
     });
 
+    //if the enter key is pressed, display time
+    //and clear the timer
     if(event.which==13 && timer == 1){
         $('h2').replaceWith("<h2>Timer has stopped. Elapsed time: " + seconds/10 + " seconds.</h2>");
         clearInterval(t);
@@ -361,6 +364,7 @@ function Timer(event){
     }
 }
 
+//timer
 function startTime () {
     seconds = seconds + 1;
     $('h2').replaceWith("<h2>Time elapsed: " + seconds/10 + " seconds.</h2>");
