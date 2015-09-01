@@ -10,9 +10,9 @@ $(document).ready(function(){
 
   //when reset button is clicked
   $(".resetBtn").click(function(){
+    seconds = 0;//set timer to 0
     $('h2').replaceWith("<h2>Click the textbox, and copy the content on the left.</h2>");
     $( ".alert" ).hide();
-    seconds = 0;//set timer to 0
     $('#userInput').val('');//clear textarea
     tempWords = genWords();//get new words for tempWords
     genParagraph();
@@ -342,8 +342,14 @@ var t;
 function Timer(event){
     //if the enter key is pressed, display time
     //and clear the timer
+    $(".resetBtn").click(function(){
+      clearInterval(t);
+      seconds = 0;
+      timer = 0;
+    });
+
     if(event.which==13 && timer == 1){
-        alert(seconds/10);
+        $('h2').replaceWith("<h2>Timer has stopped. Elapsed time: " + seconds/10 + " seconds.</h2>");
         clearInterval(t);
         seconds = 0;
         timer = 0;
