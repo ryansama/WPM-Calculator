@@ -372,12 +372,10 @@ function startTime () {
     $('h2').replaceWith("<h2>Time elapsed: " + seconds/10 + " seconds.</h2>");
 }
 
-var tempArray;
 
 function genLib () {
     for(var i = 0; i < 70; i++){
-        tempArray = tempWords[i].split('');
-        wordLib[i] = tempArray;
+        wordLib[i] = tempWords[i].split('');
     }
 }
 
