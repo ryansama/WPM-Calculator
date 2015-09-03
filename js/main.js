@@ -2,7 +2,9 @@
 //http://www.speedtypingonline.com/typing-equations
 
 var tempWords = genWords();//generate 60 words upon launch
-
+var wordLib = new Array(70);
+wordLib = genLib();
+var speedTest = new Array(70);
 //tasks to run upon page launch
 $(document).ready(function(){
   $( ".alert" ).hide();
@@ -351,7 +353,7 @@ function Timer(event){
 
     //if the enter key is pressed, display time
     //and clear the timer
-    if(event.which==13 && timer == 1){
+    if(event.which==13 && timer == 1){ 
         $('h2').replaceWith("<h2>Timer has stopped. Elapsed time: " + seconds/10 + " seconds.</h2>");
         clearInterval(t);
         seconds = 0;
@@ -369,3 +371,13 @@ function startTime () {
     seconds = seconds + 1;
     $('h2').replaceWith("<h2>Time elapsed: " + seconds/10 + " seconds.</h2>");
 }
+
+var tempArray;
+
+function genLib () {
+    for(var i = 0; i < 70; i++){
+        tempArray = tempWords[i].split('');
+        wordLib[i] = tempArray;
+    }
+}
+
