@@ -2,8 +2,7 @@
 //http://www.speedtypingonline.com/typing-equations
 
 var tempWords = genWords();//generate 60 words upon launch
-var wordLib = [];
-wordLib = genLib();
+var wordLib = genLib();
 var speedTest = [];
 //tasks to run upon page launch
 $(document).ready(function(){
@@ -374,9 +373,11 @@ function startTime () {
 
 
 function genLib () {
+    var temp1 = [];
     for(var i = 0; i < 70; i++){
-        wordLib[i] = tempWords[i].split('');
+        temp1[i] = tempWords[i].split('');
     }
+    return temp1;
 }
 
 function CallBoth(event){   
@@ -385,6 +386,5 @@ function CallBoth(event){
 }
 
 function Errors(event){
-    alert("sfs");
 }
 
