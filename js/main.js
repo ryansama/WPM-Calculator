@@ -2,9 +2,9 @@
 //http://www.speedtypingonline.com/typing-equations
 
 var tempWords = genWords();//generate 60 words upon launch
-var wordLib = new Array(70);
+var wordLib = [];
 wordLib = genLib();
-var speedTest = new Array(70);
+var speedTest = [];
 //tasks to run upon page launch
 $(document).ready(function(){
   $( ".alert" ).hide();
@@ -342,9 +342,9 @@ var timer = 0;
 var seconds = 0;//time elapsed
 var t;
 function Timer(event){
-
     //clear timer if the reset button is
     //clicked
+   var aklagf = fkasf
     $(".resetBtn").click(function(){
       clearInterval(t);
       seconds = 0;
@@ -377,5 +377,14 @@ function genLib () {
     for(var i = 0; i < 70; i++){
         wordLib[i] = tempWords[i].split('');
     }
+}
+
+function CallBoth(event){   
+    Errors(event);
+    Timer(event);
+}
+
+function Errors(event){
+    alert("sfs");
 }
 
