@@ -343,7 +343,6 @@ var t;
 function Timer(event){
     //clear timer if the reset button is
     //clicked
-   var aklagf = fkasf
     $(".resetBtn").click(function(){
       clearInterval(t);
       seconds = 0;
@@ -352,7 +351,9 @@ function Timer(event){
 
     //if the enter key is pressed, display time
     //and clear the timer
-    if(event.which==13 && timer == 1){ 
+    if(event.which==13 && timer == 1){
+        numErrors--; 
+        alert(numErrors);
         $('h2').replaceWith("<h2>Timer has stopped. Elapsed time: " + seconds/10 + " seconds.</h2>");
         clearInterval(t);
         seconds = 0;
@@ -385,6 +386,52 @@ function CallBoth(event){
     Timer(event);
 }
 
+var currWord = 0; //1st index of wordLib to locate a word
+var currIndex = 0; //2nd idnex of wordLib to locate the character index
+var numErrors = 0; 
+var space = 0; //declares if the spacebar has to be the next keypress
+var errorLib = []; //array that stores the errors from each word
+var errorArray = []; //array that stores the error at the specific index
 function Errors(event){
+
+    if(space == 1){
+        if(event.which == 32){
+            space = 0;
+            return;
+        }
+    }
+    if(String.fromCharCode(event.which) == wordLib[currWord][currIndex]){
+        errorArray[currIndex] = 0;
+        errorLib[currWord] = errorArray;
+        currIndex++;
+    }else if(String.fromCharCode(event.which) != wordLib[currWord][currIndex]){
+        errorArray[currIndex] = 1;
+        errorLib[currWord] = errorArray;
+        currIndex++;
+        numErrors++;
+    }
+    if(currIndex == wordLib[currWord].length){
+            currWord++;
+            currIndex = 0;
+            space = 1;
+    }
+}
+
+//separate function to handle backspace events
+function BackSpace(event){
+    if(event.which == 8){
+        if(space == 1 && currIndex == 0){
+            currWord--;
+            currIndex = wordLib[currWord].length;
+            space = 0;
+        }else if(space == 0 && currIndex == 0){
+            space = 1;
+            return;
+        }
+        currIndex--;
+        if(errorLib[currWord][currIndex] == 1){
+            numErrors--;        
+        }   
+    }
 }
 
