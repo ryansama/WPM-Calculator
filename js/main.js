@@ -3,7 +3,6 @@
 
 var tempWords = genWords();//generate 60 words upon launch
 var wordLib = genLib();
-var speedTest = [];
 //tasks to run upon page launch
 $(document).ready(function(){
   $( ".alert" ).hide();
@@ -11,11 +10,19 @@ $(document).ready(function(){
 
   //when reset button is clicked
   $(".resetBtn").click(function(){
+    currWord = 0; 
+    currIndex = 0; 
+    numErrors = 0; 
+    space = 0; 
+    errorLib = []; 
+    errorArray = []; 
     seconds = 0;//set timer to 0
     $('h2').replaceWith("<h2>Click the textbox, and copy the content on the left.</h2>");
     $( ".alert" ).hide();
     $('#userInput').val('');//clear textarea
     tempWords = genWords();//get new words for tempWords
+    wordLib = [];
+    wordLib = genLib();
     genParagraph();
   });
 
@@ -392,6 +399,7 @@ var numErrors = 0;
 var space = 0; //declares if the spacebar has to be the next keypress
 var errorLib = []; //array that stores the errors from each word
 var errorArray = []; //array that stores the error at the specific index
+
 function Errors(event){
 
     if(space == 1){
