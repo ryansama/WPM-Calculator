@@ -344,7 +344,6 @@ var t;
 function Timer(event){
     //clear timer if the reset button is
     //clicked
-   var aklagf = fkasf
     $(".resetBtn").click(function(){
       clearInterval(t);
       seconds = 0;
