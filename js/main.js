@@ -2,9 +2,7 @@
 //http://www.speedtypingonline.com/typing-equations
 
 var tempWords = genWords();//generate 60 words upon launch
-var wordLib = [];
-wordLib = genLib();
-var speedTest = [];
+var wordLib = genLib();
 //tasks to run upon page launch
 $(document).ready(function(){
   $( ".alert" ).hide();
@@ -12,11 +10,19 @@ $(document).ready(function(){
 
   //when reset button is clicked
   $(".resetBtn").click(function(){
+    currWord = 0; 
+    currIndex = 0; 
+    numErrors = 0; 
+    space = 0; 
+    errorLib = []; 
+    errorArray = []; 
     seconds = 0;//set timer to 0
     $('h2').replaceWith("<h2>Click the textbox, and copy the content on the left.</h2>");
     $( ".alert" ).hide();
     $('#userInput').val('');//clear textarea
     tempWords = genWords();//get new words for tempWords
+    wordLib = [];
+    wordLib = genLib();
     genParagraph();
   });
 
@@ -352,7 +358,9 @@ function Timer(event){
 
     //if the enter key is pressed, display time
     //and clear the timer
-    if(event.which==13 && timer == 1){ 
+    if(event.which==13 && timer == 1){
+        numErrors--; 
+        alert(numErrors);
         $('h2').replaceWith("<h2>Timer has stopped. Elapsed time: " + seconds/10 + " seconds.</h2>");
         clearInterval(t);
         seconds = 0;
@@ -373,9 +381,11 @@ function startTime () {
 
 
 function genLib () {
+    var temp1 = [];
     for(var i = 0; i < 70; i++){
-        wordLib[i] = tempWords[i].split('');
+        temp1[i] = tempWords[i].split('');
     }
+    return temp1;
 }
 
 function CallBoth(event){   
@@ -383,7 +393,53 @@ function CallBoth(event){
     Timer(event);
 }
 
+var currWord = 0; //1st index of wordLib to locate a word
+var currIndex = 0; //2nd idnex of wordLib to locate the character index
+var numErrors = 0; 
+var space = 0; //declares if the spacebar has to be the next keypress
+var errorLib = []; //array that stores the errors from each word
+var errorArray = []; //array that stores the error at the specific index
+
 function Errors(event){
-    alert("sfs");
+
+    if(space == 1){
+        if(event.which == 32){
+            space = 0;
+            return;
+        }
+    }
+    if(String.fromCharCode(event.which) == wordLib[currWord][currIndex]){
+        errorArray[currIndex] = 0;
+        errorLib[currWord] = errorArray;
+        currIndex++;
+    }else if(String.fromCharCode(event.which) != wordLib[currWord][currIndex]){
+        errorArray[currIndex] = 1;
+        errorLib[currWord] = errorArray;
+        currIndex++;
+        numErrors++;
+    }
+    if(currIndex == wordLib[currWord].length){
+            currWord++;
+            currIndex = 0;
+            space = 1;
+    }
+}
+
+//separate function to handle backspace events
+function BackSpace(event){
+    if(event.which == 8){
+        if(space == 1 && currIndex == 0){
+            currWord--;
+            currIndex = wordLib[currWord].length;
+            space = 0;
+        }else if(space == 0 && currIndex == 0){
+            space = 1;
+            return;
+        }
+        currIndex--;
+        if(errorLib[currWord][currIndex] == 1){
+            numErrors--;        
+        }   
+    }
 }
 
