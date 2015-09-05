@@ -1,8 +1,9 @@
 //Refer to this for formula on calculating WPM:
 //http://www.speedtypingonline.com/typing-equations
 
-var tempWords = genWords();//generate 60 words upon launch
+var tempWords = genWords();//generate words upon launch
 var wordLib = genLib();
+
 //tasks to run upon page launch
 $(document).ready(function(){
   $( ".alert" ).hide();
@@ -10,17 +11,20 @@ $(document).ready(function(){
 
   //when reset button is clicked
   $(".resetBtn").click(function(){
-    currWord = 0; 
-    currIndex = 0; 
-    numErrors = 0; 
-    space = 0; 
-    errorLib = []; 
-    errorArray = []; 
-    seconds = 0;//set timer to 0
+    //reset every variable
+    currWord = 0;
+    currIndex = 0;
+    numErrors = 0;
+    space = 0;
+    errorLib = [];
+    errorArray = [];
+    seconds = 0;
     stopped = 0;
-    $('h2').replaceWith("<h2>Click the textbox, and copy the content on the left.</h2>");
-    $( ".alert" ).hide();
-    $('#userInput').val('');//clear textarea
+
+    $('h2').replaceWith("<h2>Click the textbox, and copy the content on the left.</h2>");//reset header
+    $( ".alert" ).hide();//hide the alert box
+    $('#userInput').val('');//clear the text area
+
     tempWords = genWords();//get new words for tempWords
     wordLib = [];
     wordLib = genLib();
@@ -384,14 +388,14 @@ function genLib () {
     return temp1;
 }
 
-function CallBoth(event){   
+function CallBoth(event){
     Errors(event);
     Timer(event);
 }
 
 var currWord = 0; //1st index of wordLib to locate a word
 var currIndex = 0; //2nd idnex of wordLib to locate the character index
-var numErrors = 0; 
+var numErrors = 0;
 var space = 0; //declares if the spacebar has to be the next keypress
 var errorLib = []; //array that stores the errors from each word
 var errorArray = []; //array that stores the error at the specific index
@@ -428,7 +432,7 @@ function Errors(event){
 
         //once the user has correctly typed the last character
         //the program is stopped with StopTime
-        if(currWord == 4 && currIndex == wordLib[currWord].length){ //@ change 4 to #words - 1
+        if(currWord ==4 && currIndex == wordLib[currWord].length){ //@change 4 to #words - 1
             StopTime();
             return;
         }
@@ -439,7 +443,7 @@ function Errors(event){
         numErrors++;
     }
 
-    //increases currWord and resets currIndex 
+    //increases currWord and resets currIndex
     //when the end of a word is reached
     if(currIndex == wordLib[currWord].length){
             currWord++;
@@ -480,8 +484,8 @@ function BackSpace(event){
 
         //reduces the number of errors if the character that was backspaced was wrong
         if(errorLib[currWord][currIndex] == 1){
-            numErrors--;        
-        }   
+            numErrors--;
+        }
     }
 }
 
@@ -493,4 +497,3 @@ function StopTime(){
     seconds = 0;
     timer = 0;
 }
-
