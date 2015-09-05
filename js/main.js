@@ -17,6 +17,7 @@ $(document).ready(function(){
     errorLib = []; 
     errorArray = []; 
     seconds = 0;//set timer to 0
+    stopped = 0;
     $('h2').replaceWith("<h2>Click the textbox, and copy the content on the left.</h2>");
     $( ".alert" ).hide();
     $('#userInput').val('');//clear textarea
@@ -341,12 +342,13 @@ function genWords(){
   }
 
   words.wordList = wordList;
-  return words(70);
+  return words(5); //@change 5 to #words
 }
 
 var timer = 0;
 var seconds = 0;//time elapsed
 var t;
+var stopped = 0;
 function Timer(event){
     //clear timer if the reset button is
     //clicked
@@ -358,14 +360,8 @@ function Timer(event){
 
     //if the enter key is pressed, display time
     //and clear the timer
-    if(event.which==13 && timer == 1){
-        numErrors--; 
-        alert(numErrors);
-        $('h2').replaceWith("<h2>Timer has stopped. Elapsed time: " + seconds/10 + " seconds.</h2>");
-        clearInterval(t);
-        seconds = 0;
-        timer = 0;
-    }else if(timer == 0 && event.which!=13){
+
+        if(timer == 0 && event.which!=13 && stopped == 0){
         $('h2').replaceWith("<h2>Time elapsed: " + seconds/10 + " seconds.</h2>");
         timer = 1;
         t = setInterval(function() {startTime()}, 100);
@@ -379,10 +375,10 @@ function startTime () {
     $('h2').replaceWith("<h2>Time elapsed: " + seconds/10 + " seconds.</h2>");
 }
 
-
+//generates a 2d array of tempWords into a char Array
 function genLib () {
     var temp1 = [];
-    for(var i = 0; i < 70; i++){
+    for(var i = 0; i < 5; i++){ //@ change 5 to #words
         temp1[i] = tempWords[i].split('');
     }
     return temp1;
@@ -399,8 +395,21 @@ var numErrors = 0;
 var space = 0; //declares if the spacebar has to be the next keypress
 var errorLib = []; //array that stores the errors from each word
 var errorArray = []; //array that stores the error at the specific index
+var atEnd = 0; //increases after the end of the text is reached
 
+//counts errors while typing
 function Errors(event){
+    //returns when the user has finished typing the text
+    if(stopped == 1){
+        return;
+    }
+    //increments atEnd and returns if the user continues to type when they have not
+    //finished the last word
+    if(atEnd > 0){
+        atEnd++;
+        return;
+    }
+
 
     if(space == 1){
         if(event.which == 32){
@@ -408,16 +417,30 @@ function Errors(event){
             return;
         }
     }
+
+    //if the user types the correct letter
+    //the index of the char will be marked as correct
+    //otherwise marked incorrect
     if(String.fromCharCode(event.which) == wordLib[currWord][currIndex]){
         errorArray[currIndex] = 0;
         errorLib[currWord] = errorArray;
         currIndex++;
+
+        //once the user has correctly typed the last character
+        //the program is stopped with StopTime
+        if(currWord == 4 && currIndex == wordLib[currWord].length){ //@ change 4 to #words - 1
+            StopTime();
+            return;
+        }
     }else if(String.fromCharCode(event.which) != wordLib[currWord][currIndex]){
         errorArray[currIndex] = 1;
         errorLib[currWord] = errorArray;
         currIndex++;
         numErrors++;
     }
+
+    //increases currWord and resets currIndex 
+    //when the end of a word is reached
     if(currIndex == wordLib[currWord].length){
             currWord++;
             currIndex = 0;
@@ -428,18 +451,46 @@ function Errors(event){
 //separate function to handle backspace events
 function BackSpace(event){
     if(event.which == 8){
+        //returns if a backspace is entered at the start of text
+        if(currIndex == 0 && currWord == 0){
+            return;
+        }
+        //decreases atEnd and returns when the end has been reached
+        if(atEnd > 0){
+            atEnd--;
+            return;
+        }
+
+        //if a space is supposed to be pressed
+        //move back a character and set the index to the length of the previous word
         if(space == 1 && currIndex == 0){
             currWord--;
             currIndex = wordLib[currWord].length;
             space = 0;
+
+        //if a space is not to be pressed
+        //but the current character is the start of a word
+        //make the next character to be pressed to be the spacebar
         }else if(space == 0 && currIndex == 0){
             space = 1;
             return;
         }
+
         currIndex--;
+
+        //reduces the number of errors if the character that was backspaced was wrong
         if(errorLib[currWord][currIndex] == 1){
             numErrors--;        
         }   
     }
+}
+
+//'stops' the program
+function StopTime(){
+    stopped = 1;
+    clearInterval(t);
+    $('h2').replaceWith("<h2>Timer has stopped. Elapsed time: " + seconds/10 + " seconds. Number of errors: " + numErrors + "</h2>");
+    seconds = 0;
+    timer = 0;
 }
 
