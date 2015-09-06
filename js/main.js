@@ -2,7 +2,7 @@
 //http://www.speedtypingonline.com/typing-equations
 
 var tempWords = genWords();//generate words upon launch
-var wordLib = genLib();
+var wordLib = genLib();//a 2D char array version of tempWords
 
 //tasks to run upon page launch
 $(document).ready(function(){
@@ -21,7 +21,7 @@ $(document).ready(function(){
     seconds = 0;
     stopped = 0;
 
-    $('h2').replaceWith("<h2>Click the textbox, and copy the content on the left.</h2>");//reset header
+    $('h2').replaceWith("<h2>Click the textbox, and copy the content on the paragraph.</h2>");//reset header
     $( ".alert" ).hide();//hide the alert box
     $('#userInput').val('');//clear the text area
 
@@ -362,15 +362,14 @@ function Timer(event){
       timer = 0;
     });
 
-    //if the enter key is pressed, display time
-    //and clear the timer
-
-        if(timer == 0 && event.which!=13 && stopped == 0){
-        $('h2').replaceWith("<h2>Time elapsed: " + seconds/10 + " seconds.</h2>");
-        timer = 1;
-        t = setInterval(function() {startTime()}, 100);
-        timer = 1;
+    //start the timer (called from onkeypress in index.html)
+    if(timer == 0 && event.which!=13 && stopped == 0){
+      $('h2').replaceWith("<h2>Time elapsed: " + seconds/10 + " seconds.</h2>");
+      timer = 1;
+      t = setInterval(function() {startTime()}, 100);
+      timer = 1;
     }
+
 }
 
 //timer
@@ -379,15 +378,17 @@ function startTime () {
     $('h2').replaceWith("<h2>Time elapsed: " + seconds/10 + " seconds.</h2>");
 }
 
-//generates a 2d array of tempWords into a char Array
+//creates a 2D char array of the original tempWords array
 function genLib () {
-    var temp1 = [];
+    var charArray = [];
     for(var i = 0; i < 5; i++){ //@ change 5 to #words
-        temp1[i] = tempWords[i].split('');
+        charArray[i] = tempWords[i].split('');
     }
-    return temp1;
+    return charArray;
 }
 
+//calls both the timer and error counter
+//from onkeypress in index.html
 function CallBoth(event){
     Errors(event);
     Timer(event);
@@ -400,6 +401,7 @@ var space = 0; //declares if the spacebar has to be the next keypress
 var errorLib = []; //array that stores the errors from each word
 var errorArray = []; //array that stores the error at the specific index
 var atEnd = 0; //increases after the end of the text is reached
+var typedEntries = 0;//the number of typed characters (to be used to calculate WPM)
 
 //counts errors while typing
 function Errors(event){
@@ -426,21 +428,23 @@ function Errors(event){
     //the index of the char will be marked as correct
     //otherwise marked incorrect
     if(String.fromCharCode(event.which) == wordLib[currWord][currIndex]){
-        errorArray[currIndex] = 0;
-        errorLib[currWord] = errorArray;
-        currIndex++;
+      errorArray[currIndex] = 0;
+      errorLib[currWord] = errorArray;
+      currIndex++;
+      typedEntries++;
 
-        //once the user has correctly typed the last character
-        //the program is stopped with StopTime
-        if(currWord ==4 && currIndex == wordLib[currWord].length){ //@change 4 to #words - 1
-            StopTime();
-            return;
-        }
+      //once the user has correctly typed the last character
+      //the program is stopped with StopTime
+      if(currWord == 4 && currIndex == wordLib[currWord].length){ //@change 4 to #words - 1
+          StopTime();
+          return;
+      }
     }else if(String.fromCharCode(event.which) != wordLib[currWord][currIndex]){
         errorArray[currIndex] = 1;
         errorLib[currWord] = errorArray;
         currIndex++;
         numErrors++;
+        typedEntries++;
     }
 
     //increases currWord and resets currIndex
@@ -493,7 +497,15 @@ function BackSpace(event){
 function StopTime(){
     stopped = 1;
     clearInterval(t);
-    $('h2').replaceWith("<h2>Timer has stopped. Elapsed time: " + seconds/10 + " seconds. Number of errors: " + numErrors + "</h2>");
+    var netWPM = calcNetWPM();
+    $('h2').replaceWith("<h2>Your typing speed in net WPM: " + netWPM + " words per minute.");
+    $('h2').css('color', 'green');
     seconds = 0;
     timer = 0;
+}
+
+function calcNetWPM(){
+  var grossWPM = (typedEntries / 5) / (seconds / 10 / 60);
+  var netWPM = grossWPM - (numErrors / seconds / 10 / 60);
+  return Math.round(netWPM * 100) / 100
 }
