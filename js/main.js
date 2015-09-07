@@ -346,7 +346,7 @@ function genWords(){
   }
 
   words.wordList = wordList;
-  return words(5); //@change 5 to #words
+  return words(50); //@change 5 to #words
 }
 
 var timer = 0;
@@ -381,7 +381,7 @@ function startTime () {
 //creates a 2D char array of the original tempWords array
 function genLib () {
     var charArray = [];
-    for(var i = 0; i < 5; i++){ //@ change 5 to #words
+    for(var i = 0; i < 50; i++){ //@ change 5 to #words
         charArray[i] = tempWords[i].split('');
     }
     return charArray;
@@ -435,7 +435,7 @@ function Errors(event){
 
       //once the user has correctly typed the last character
       //the program is stopped with StopTime
-      if(currWord == 4 && currIndex == wordLib[currWord].length){ //@change 4 to #words - 1
+      if(currWord == 49 && currIndex == wordLib[currWord].length){ //@change 4 to #words - 1
           StopTime();
           return;
       }
