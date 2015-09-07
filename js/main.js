@@ -435,7 +435,9 @@ function Errors(event){
     }else if(String.fromCharCode(event.which) != wordLib[currWord][currIndex]){
         errorArray[currIndex] = 1;
         errorLib[currWord] = errorArray;
-        currIndex++;
+        if(space == 0){
+            currIndex++;
+        }
         numErrors++;
     }
 
