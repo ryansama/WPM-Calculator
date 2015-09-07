@@ -26,9 +26,10 @@ $(document).ready(function(){
     $('#userInput').val('');//clear the text area
 
     tempWords = genWords();//get new words for tempWords
-    wordLib = [];
-    wordLib = genLib();
-    genParagraph();
+    wordLib = [];//empty the 2D char array
+    wordLib = genLib();//refill the 2D char array
+
+    genParagraph();//display the paragraph
   });
 
   //display an alert if the document is clicked
@@ -506,6 +507,8 @@ function StopTime(){
     timer = 0;
 }
 
+//calculate the net WPM using the formula provided
+//in http://www.speedtypingonline.com/typing-equations
 function calcNetWPM(){
   var grossWPM = (typedEntries / 5) / (seconds / 10 / 60);
   var netWPM = grossWPM - (numErrors / seconds / 10 / 60);
