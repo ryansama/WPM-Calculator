@@ -2,34 +2,22 @@
 //http://www.speedtypingonline.com/typing-equations
 
 var tempWords = genWords();//generate words upon launch
-var wordLib = genLib();//a 2D char array version of tempWords
 
 //tasks to run upon page launch
 $(document).ready(function(){
-  $( ".alert" ).hide();
+  $( ".alert" ).hide();//hide the red alert box
   genParagraph();//generate paragraph upon launch
 
   //when reset button is clicked
   $(".resetBtn").click(function(){
-    //reset every variable
-    currWord = 0;
-    currIndex = 0;
-    numErrors = 0;
-    space = 0;
-    errorLib = [];
-    errorArray = [];
-    seconds = 0;
-    stopped = 0;
 
     $('h2').replaceWith("<h2>Click the textbox, and copy the content on the paragraph.</h2>");//reset header
     $( ".alert" ).hide();//hide the alert box
     $('#userInput').val('');//clear the text area
 
     tempWords = genWords();//get new words for tempWords
-    wordLib = [];//empty the 2D char array
-    wordLib = genLib();//refill the 2D char array
-
     genParagraph();//display the paragraph
+
   });
 
   //display an alert if the document is clicked
@@ -42,8 +30,7 @@ $(document).ready(function(){
 
 });
 
-//append the contents of tempWords
-//to the paragraph area
+//appends the contents of tempWords to the paragraph area
 function genParagraph(){
 
   document.getElementById("userInput").select();//focus the textarea
@@ -59,9 +46,7 @@ function genParagraph(){
 
 }
 
-//returns an array of 60 words that
-//is generated randomly from the
-//wordList array
+//returns an array of 60 English words
 function genWords(){
   var wordList = [
     // Borrowed from xkcd password generator which borrowed it from wherever
@@ -348,61 +333,4 @@ function genWords(){
 
   words.wordList = wordList;
   return words(50); //@change 5 to #words
-}
-
-var timer = 0;
-var seconds = 0;//time elapsed
-var t;
-var stopped = 0;
-function Timer(event){
-    //clear timer if the reset button is
-    //clicked
-    $(".resetBtn").click(function(){
-      clearInterval(t);
-      seconds = 0;
-      timer = 0;
-    });
-
-    //start the timer (called from onkeypress in index.html)
-    if(timer == 0 && event.which!=13 && stopped == 0){
-      $('h2').replaceWith("<h2>Time elapsed: " + seconds/10 + " seconds.</h2>");
-      timer = 1;
-      t = setInterval(function() {startTime()}, 100);
-      timer = 1;
-    }
-
-}
-
-//timer
-function startTime () {
-    seconds = seconds + 1;
-    $('h2').replaceWith("<h2>Time elapsed: " + seconds/10 + " seconds.</h2>");
-}
-
-//creates a 2D char array of the original tempWords array
-function genLib () {
-    var charArray = [];
-    for(var i = 0; i < 50; i++){ //@ change 5 to #words
-        charArray[i] = tempWords[i].split('');
-    }
-    return charArray;
-}
-
-//'stops' the program
-function StopTime(){
-    stopped = 1;
-    clearInterval(t);
-    var netWPM = calcNetWPM();
-    $('h2').replaceWith("<h2>Your typing speed in net WPM: " + netWPM + " words per minute." + "Errors: " + numErrors + " Time:" + seconds/10);
-    $('h2').css('color', 'green');
-    seconds = 0;
-    timer = 0;
-}
-
-//calculate the net WPM using the formula provided
-//in http://www.speedtypingonline.com/typing-equations
-function calcNetWPM(){
-  var grossWPM = (typedEntries / 5) / (seconds / 10 / 60);
-  var netWPM = grossWPM - (numErrors / seconds / 10 / 60);
-  return Math.round(netWPM * 100) / 100
 }
