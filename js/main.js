@@ -11,6 +11,7 @@ $(document).ready(function(){
   //when reset button is clicked
   $(".resetBtn").click(function(){
 
+    bindTextArea();//allow the test to start again
     $('h2').replaceWith("<h2>Click the textbox, and copy the content on the paragraph.</h2>");//reset header
     $( ".alert" ).hide();//hide the alert box
     $('#userInput').val('');//clear the text area
@@ -20,12 +21,9 @@ $(document).ready(function(){
 
   });
 
-  //display an alert if the document is clicked
-  //while timer is still running
-  $(document).click(function(e) {
-    if(seconds > 0){
-      $( ".alert" ).show("fast");
-    }
+  //start test when a key is first pressed in text area
+  $('textarea').one("keypress", function () {
+    startTest();
   });
 
 });
@@ -46,7 +44,7 @@ function genParagraph(){
 
 }
 
-//returns an array of 60 English words
+//returns an array of 50 English words
 function genWords(){
   var wordList = [
     // Borrowed from xkcd password generator which borrowed it from wherever
@@ -333,4 +331,27 @@ function genWords(){
 
   words.wordList = wordList;
   return words(50); //@change 5 to #words
+}
+
+//allows the test to start again when a key is pressed
+function bindTextArea() {
+    $("textarea").unbind('keypress').one("keypress", function() {
+        startTest();
+    });
+}
+
+function startTest(){
+  console.log("Test has started.");
+  var startTime = new Date();//capture the exact time the test starts
+
+  $('textarea').keypress(function(){
+    console.log(event.charCode);
+  })
+  //display an alert if the document is clicked
+  //while timer is still running
+  $(document).mousedown(function(e) {
+    if(startTime > 0){
+      $( ".alert" ).show("fast");
+    }
+  });
 }
